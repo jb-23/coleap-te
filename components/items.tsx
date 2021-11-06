@@ -1,6 +1,8 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
 
+import ItemCard from "./item-card"
+
 type Props = {
 }
 
@@ -21,9 +23,15 @@ const Items = () => {
   }, [])
 
   return (
-    <p>
-      {items.map(item => JSON.stringify(item)).join(" ")}
-    </p>
+    <ul>
+      {
+        items.map((item, index) => (
+          <li key={index} className="inline-block">
+            <ItemCard item={item} />
+          </li>
+        ))
+      }
+    </ul>
   )
 }
 
