@@ -16,22 +16,52 @@ const Items = () => {
     ).then(result => {
       return result.json()
     }).then(result => {
+      doSort(result, "Range")
       setItems(result)
       //console.log(result)
     })
     return () => { cleanup = true }
   }, [])
 
+  function changeSort(event) {
+    const sortMethod = event.target.value
+    console.log(sortMethod)
+    doSort(items, sortMethod)
+    setItems([...items])
+  }
+
+  function doSort(list, method = "") {
+    // sort on price
+    list.sort((x, y) => {
+      const a = Number(x.price.split(" ")[0])
+      const b = Number(y.price.split(" ")[0])
+      return a - b
+    })
+    if (method === "Range") {
+      list.sort((x, y) => {
+        return y.range.distance - x.range.distance
+      })
+    }
+  }
+
   return (
+    <>
+    <p>Sort by:
+    <select onChange={changeSort} defaultValue="Range">
+    <option value="Range">Best Range</option>
+    <option value="Price">Lowest Price</option>
+    </select>
+    </p>
     <ul>
       {
         items.map((item, index) => (
-          <li key={index} className="inline-block">
+          <li key={item.id} className="inline-block">
             <ItemCard item={item} />
           </li>
         ))
       }
     </ul>
+    </>
   )
 }
 
