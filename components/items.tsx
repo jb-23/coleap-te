@@ -46,13 +46,14 @@ const Items = () => {
 
   return (
     <>
-    <p>Sort by:
+    <p className="text-center">Sort by:
     <select onChange={changeSort} defaultValue="Range">
     <option value="Range">Best Range</option>
     <option value="Price">Lowest Price</option>
     </select>
     </p>
-    <ul>
+    <div>
+    <ul className="text-center">
       {
         items.map((item, index) => (
           <li key={item.id} className="inline-block">
@@ -61,6 +62,7 @@ const Items = () => {
         ))
       }
     </ul>
+    </div>
     </>
   )
 }
